@@ -1,8 +1,9 @@
-import fs, { readFile } from "fs";
+import fs from "fs";
 import * as redis from "redis";
 import express from "express";
 
-const client = redis.createClient();
+const devurl = "redis://127.0.0.1:6379"
+const client = redis.createClient( {url: process.env.REDIS_URL || devurl} );
 const app = express();
 
 client.on('error', (err) => console.log('Redis Client Error', err));
@@ -18,12 +19,6 @@ function main(){
     setTimeout(() => {
         getDataFromDB();
     },5000)
-    setTimeout(() => {
-        deleteDataFromDB(key);
-    },7000)
-    setTimeout(() => {
-        getDataFromDB();
-    },8000)
 }
 
 async function connect(){
