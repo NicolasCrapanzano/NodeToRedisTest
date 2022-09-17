@@ -15,8 +15,10 @@ const key: string = "text";
 
 main();
 function main(){
+    console.log("starting node process");
     setToDB(key, readfile(fileName));
     setTimeout(() => {
+        console.log("trying to get data from db");
         getDataFromDB();
     },5000)
 }
@@ -31,6 +33,7 @@ function readfile(filename: string){
 }
 
 function setToDB(key: string,data: string){
+    console.log("key has been set");
     client.setEx(key, 10, data);
 }
 

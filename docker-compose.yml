@@ -5,6 +5,11 @@ services:
     ports:
       - '6379:6379'
   node:
-    build: ./dockernode
+    restart: always
+    build: .
     ports:
       - '81:5000'
+    environment:
+      REDIS_URL: "redis://redis:6379"
+    depends_on:
+      - redis
